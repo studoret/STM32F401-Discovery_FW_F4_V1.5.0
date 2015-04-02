@@ -46,7 +46,9 @@ SRCS = stm32f4xx_hal.c \
 SRCS += stm32f401_discovery.c \
         stm32f401_discovery_accelerometer.c
 
-SRCS += stm32f401_discovery_audio.c
+ifeq ($(USE_AUDIO),1)
+  SRCS += stm32f401_discovery_audio.c
+endif
 
 SRCS += lsm303dlhc.c
 
