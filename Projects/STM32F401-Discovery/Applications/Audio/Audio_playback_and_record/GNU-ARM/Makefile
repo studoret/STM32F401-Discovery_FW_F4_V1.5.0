@@ -15,6 +15,4 @@ PROJECT_SOURCES := main.c\
                    waveplayer.c\
                    waverecorder.c
 
-PROJECT_SOURCES += syscalls.c
-
 include $(STM_COMMON)/GNU-ARM/STM32F401-Discovery.mk

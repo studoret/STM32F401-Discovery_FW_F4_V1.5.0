@@ -19,7 +19,7 @@ CMSIS_PATH = $(DRIVERS_PATH)/CMSIS
 PROJECT_SOURCES_PATH=$(PROJECT_PATH)/Src
 PROJECT_INCLUDE_PATH=$(PROJECT_PATH)/Inc
 
-vpath %.c $(PROJECT_SOURCES_PATH)
+vpath %.c $(PROJECT_SOURCES_PATH):$(STM_COMMON)/GNU-ARM/
 
 #Permissible values are: 'soft', 'softfp' and 'hard'.
 FLOAT_ABI = softfp
@@ -62,6 +62,8 @@ ifeq ($(USE_AUDIO_PDM),1)
   LDFLAGS += -L $(MIDDLEWARES_PATH)/ST/STM32_Audio/Addons/PDM
   PROJECT_LIBRARIES := -lPDMFilter_CM4_GCC
 endif
+
+PROJECT_SOURCES += syscalls.c
 
 OBJS = $(addprefix $(BUILD_DIR)/objs/,$(PROJECT_SOURCES:.c=.o))
 DEPS = $(addprefix $(BUILD_DIR)/deps/,$(PROJECT_SOURCES:.c=.d))
