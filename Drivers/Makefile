@@ -11,7 +11,8 @@ LIB_NAME = libstm32f4_drivers.a
 vpath %.c STM32F4xx_HAL_Driver/Src \
           BSP/STM32F401-Discovery \
           BSP/Components/lsm303dlhc \
-          BSP/Components/cs43l22
+          BSP/Components/cs43l22 \
+          BSP/Components/l3gd20
 
 CFLAGS  = -g -O2 -Wall
 CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -march=armv7e-m
@@ -48,6 +49,18 @@ SRCS += stm32f401_discovery.c \
 
 ifeq ($(USE_AUDIO),1)
   SRCS += stm32f401_discovery_audio.c
+endif
+
+ifeq ($(USE_GYROSCOPE),1)
+  SRCS += stm32f401_discovery_gyroscope.c l3gd20.c
+endif
+
+ifeq ($(USE_ADC),1)
+  SRCS += stm32f4xx_hal_adc.c stm32f4xx_hal_adc_ex.c
+endif
+
+ifeq ($(USE_RTC),1)
+  SRCS += stm32f4xx_hal_rtc.c stm32f4xx_hal_rtc_ex.c
 endif
 
 SRCS += lsm303dlhc.c

@@ -74,20 +74,20 @@ BUILD_DIR=build
 ###################################################
 
 # Location of the linker scripts
-LINKER_SCRIPT_DIR = $(PROJECT_PATH)/TrueSTUDIO/STM32F401-DISCO
+LINKER_SCRIPT_DIR = $(PROJECT_PATH)/TrueSTUDIO/${PROJECT_NAME}
 
 STARTUP_SCRIPT = $(PROJECT_PATH)/TrueSTUDIO/startup_stm32f401xc.s
 
 ###################################################
 
-PHONY: all proj program debug clean reallyclean
+PHONY: all
 
 all: drivers middlewares proj
 
 -include $(DEPS)
 
 drivers: $(DRIVERS_PATH)
-	$(MAKE) -C $(DRIVERS_PATH) MCU=$(MCU) PROJECT_CFLAGS="$(PROJECT_CFLAGS)" FLOAT_ABI=$(FLOAT_ABI) USE_AUDIO=$(USE_AUDIO)
+	$(MAKE) -C $(DRIVERS_PATH) MCU=$(MCU) PROJECT_CFLAGS="$(PROJECT_CFLAGS)" FLOAT_ABI=$(FLOAT_ABI) USE_AUDIO=$(USE_AUDIO) USE_ADC=$(USE_ADC) USE_GYROSCOPE=$(USE_GYROSCOPE) USE_RTC=$(USE_RTC)
 
 middlewares: $(MIDDLEWARES_PATH)
 	$(MAKE) -C $(MIDDLEWARES_PATH) MCU=$(MCU) PROJECT_CFLAGS="$(PROJECT_CFLAGS)" FLOAT_ABI=$(FLOAT_ABI) USE_USB_DEVICE=$(USE_USB_DEVICE) USE_USB_HOST=$(USE_USB_HOST) USE_FATFS=$(USE_FATFS)
@@ -112,6 +112,7 @@ $(BUILD_DIR)/$(PROJECT_NAME).elf: $(OBJS)
 program: all
 	@sleep 1
 	st-flash write `pwd`/$(BUILD_DIR)/$(PROJECT_NAME).bin 0x08000000
+	$(PROJECT_POST_PROGRAM)
 
 debug: program
 	$(GDB) -x extra/gdb_cmds $(PROJECT_NAME).elf
