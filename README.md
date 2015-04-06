@@ -19,3 +19,26 @@ http://www.st.com/web/en/catalog/tools/PF259243#
 > ./autogen.sh <br />
 > ./configure <br />
 > make <br />
+
+# Compiling
+
+## Environment varibles 
+
+Edit the STM32Cube_FW_F4_V1.5.0/GNU-ARM/envsetup.sh according to the toolchain and stlink paths <br />
+Then do : <br />
+> cd STM32Cube_FW_F4_V1.5.0
+> source GNU-ARM/envsetup.sh
+
+## Audio_playback_and_record example
+> cd Projects/STM32F401-Discovery/Applications/Audio/Audio_playback_and_record <br />
+> cd GNU_ARM <br />
+> <br />
+> \# clean STM32Cube_FW_F4_V1.5.0/Middlewares/build, STM32Cube_FW_F4_V1.5.0/Drivers/build <br \>
+> \#     and build directories <br />
+> make reallyclean <br />
+> <br />
+> \# make binaries <br />
+> make <br />
+> <br />
+> \# Flash the board <br />
+> make program <br />
