@@ -20,6 +20,9 @@ http://www.st.com/web/en/catalog/tools/PF259243#
 > ./configure <br />
 > make <br />
 
+## Clone the current project
+> git clone https://github.com/studoret/STM32F401-Discovery_FW_F4_V1.5.0.git <br />
+
 # Compiling
 
 ## Environment varibles 
